@@ -13,6 +13,8 @@ public class IdeaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(IdeaApplication.class, args);
+        //region 自己的代码
         log.info("IdeaApplication启动完成");
+        //endregion
     }
 }
