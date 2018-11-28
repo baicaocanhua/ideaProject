@@ -12,22 +12,29 @@ import org.springframework.util.CollectionUtils;
 
 /**
  * @author user
+ * SpringBoot整合Redis及Redis工具类撰写
+ * 参考地址：https://www.cnblogs.com/zeng1994/p/03303c805731afc9aa9c60dbbd32a323.html
  */
 @Component
 public final class RedisUtil {
 
+    private final RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     //region Common
     // =============================common============================
+
 
     /**
      * 指定缓存失效时间
      *
      * @param key  键
      * @param time 时间(秒)
-     * @return
+     * @return true:成功，false：失败
      */
     public boolean expire(String key, long time) {
         try {
@@ -476,7 +483,6 @@ public final class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
      * @return
      */
     public boolean lSet(String key, Object value) {
@@ -515,7 +521,6 @@ public final class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {

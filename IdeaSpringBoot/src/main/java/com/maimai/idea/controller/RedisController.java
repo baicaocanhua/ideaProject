@@ -17,9 +17,14 @@ public class RedisController {
     public String getMai() {
         return redisUtil.get("maimai").toString();
     }
+
     @RequestMapping(value = "setmai")
     public boolean getMai(String v) {
-       return redisUtil.set("maimai",v);
+        return redisUtil.set("maimai", v);
 
     }
+
+
+
+
 }
