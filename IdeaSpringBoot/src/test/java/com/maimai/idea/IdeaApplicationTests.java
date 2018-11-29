@@ -37,9 +37,8 @@ public class IdeaApplicationTests {
 
         byte[] ss = Base64.decodeBase64(bst);
 
-        byte[] desPlain1 = decrypt(desResult, desKey);
+        byte[] desPlain1 = decrypt(ss, desKey);
         System.out.println(DATA + ">>>DES 解密结果>>>" + new String(desPlain1));
-
 
 
         String content = "hello,您好";
@@ -47,7 +46,16 @@ public class IdeaApplicationTests {
         System.out.println("content:" + content);
         String s1 = encrypt(content, key);
         System.out.println("s1:" + s1);
-        System.out.println("s2:"+ decrypt(s1, key));
+        System.out.println("s2:" + decrypt(s1, key));
+
+
+        String createKey = createKey();
+
+        String s = enCreate("买买买买", createKey);
+        String d = deCreate(s, createKey);
+
+        System.out.println("s:" + s);
+        System.out.println("d:" + d);
 
 
     }
@@ -61,6 +69,13 @@ public class IdeaApplicationTests {
         keyGen.init(56);
         SecretKey secretKey = keyGen.generateKey();
         return secretKey.getEncoded();
+    }
+
+    private String createKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGen = KeyGenerator.getInstance("DES");
+        keyGen.init(56);
+        SecretKey secretKey = keyGen.generateKey();
+        return Base64.encodeBase64String(secretKey.getEncoded());
     }
 
 
@@ -102,6 +117,16 @@ public class IdeaApplicationTests {
         return cipherBytes;
     }
 
+    private String enCreate(String content, String createKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        byte[] key = Base64.decodeBase64(createKey);
+        SecretKey secretKey = new SecretKeySpec(key, "DES");
+        byte[] data = content.getBytes();
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] cipherBytes = cipher.doFinal(data);
+        return Base64.encodeBase64String(cipherBytes);
+    }
+
     /*
      * DES 解密
      */
@@ -115,11 +140,24 @@ public class IdeaApplicationTests {
     }
 
 
+    private String deCreate(String content, String createKey) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException {
+        byte[] data = Base64.decodeBase64(content);
+
+        byte[] key = Base64.decodeBase64(createKey);
+        SecretKey secretKey = new SecretKeySpec(key, "DES");
+
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] plainBytes = cipher.doFinal(data);
+        return new String(plainBytes);
+    }
+
+
     /**
      * DES 加密操作
      *
      * @param content 待加密内容
-     * @param key 加密密钥
+     * @param key     加密密钥
      * @return 返回Base64转码后的加密数据
      */
     public static String encrypt(String content, String key) {
@@ -166,9 +204,6 @@ public class IdeaApplicationTests {
 
         return null;
     }
-
-
-
 
 
 }
