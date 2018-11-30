@@ -4,8 +4,11 @@ package com.maimai.idea;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 /**
  * @author user
@@ -15,10 +18,15 @@ public class IdeaApplication {
 
     private static final Logger log = LoggerFactory.getLogger(IdeaApplication.class);
 
+
+
     public static void main(String[] args) {
+        System.setProperties("key","maimaikey");
         SpringApplication.run(IdeaApplication.class, args);
         //region 自己的代码
+
         log.info("IdeaApplication启动完成");
+        System.out.println(Arrays.toString(args));//获取所有 包含--server.port
         //endregion
 
 
