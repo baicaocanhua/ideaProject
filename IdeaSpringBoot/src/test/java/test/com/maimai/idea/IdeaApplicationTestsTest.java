@@ -1,35 +1,33 @@
-package test.com.maimai.idea; 
+package test.com.maimai.idea;
 
-import org.junit.Test; 
-import org.junit.Before; 
-import org.junit.After; 
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
-/** 
-* IdeaApplicationTests Tester. 
-* 
-* @author <Authors name> 
-* @since <pre>十一月 28, 2018</pre> 
-* @version 1.0 
-*/ 
-public class IdeaApplicationTestsTest { 
+/**
+ * IdeaApplicationTests Tester.
+ *
+ * @author <Authors name>
+ * @version 1.0
+ * @since <pre>十一锟斤拷 28, 2018</pre>
+ */
+public class IdeaApplicationTestsTest {
 
-@Before
-public void before() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: contextLoads() 
-* 
-*/ 
-@Test
-public void testContextLoads() throws Exception { 
-//TODO: Test goes here... 
-} 
+    /**
+     * Method: contextLoads()
+     */
+    @Test
+    public void testContextLoads() throws Exception {
+        System.out.println(111);
+    }
 
 
 } 

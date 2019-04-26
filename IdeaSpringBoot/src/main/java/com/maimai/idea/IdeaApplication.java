@@ -7,26 +7,32 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Arrays;
 
 /**
  * @author user
  */
+@EnableAsync // 开启异步任务
 @SpringBootApplication
+
 public class IdeaApplication {
 
     private static final Logger log = LoggerFactory.getLogger(IdeaApplication.class);
 
 
-
     public static void main(String[] args) {
-        System.setProperties("key","maimaikey");
+        System.setProperty("maimaikey", "maimaikey");
+        String dp = System.getProperty("dp");
+        System.out.println(dp);
         SpringApplication.run(IdeaApplication.class, args);
         //region 自己的代码
 
         log.info("IdeaApplication启动完成");
         System.out.println(Arrays.toString(args));//获取所有 包含--server.port
+        String dp1 = System.getProperty("dp");
+        System.out.println(dp1);
         //endregion
 
 

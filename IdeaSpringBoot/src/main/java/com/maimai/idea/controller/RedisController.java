@@ -2,6 +2,7 @@ package com.maimai.idea.controller;
 
 import com.maimai.idea.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,13 @@ public class RedisController {
 
     }
 
+    @Value(value = "${maimai.secret}")
+    private String randomValue;
 
+    @RequestMapping(value = "random")
+    public String getRandom() {
+        return randomValue;
+    }
 
 
 }
